@@ -1,0 +1,5 @@
+source .venv/bin/activate;
+export FLASK_APP=app
+export FLASK_DEBUG=true
+
+export DATABASE_URL=sqlite:///${PWD}/app.db

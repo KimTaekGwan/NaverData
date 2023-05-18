@@ -1,0 +1,9 @@
+pandas
+
+selenium
+webdriver_manager
+
+python-dotenv
+
+flask 
+cryptography

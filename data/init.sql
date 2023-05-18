@@ -1,5 +1,5 @@
-CREATE TABLE if not exists `Crawling_Keywords` (
-  `search_id` integer PRIMARY KEY,
+CREATE TABLE `Crawling_Keywords` (
+  `search_id` integer PRIMARY KEY AUTO_INCREMENT,
   `type` varchar(255),
   `period` varchar(255),
   `start_date` timestamp,
@@ -10,15 +10,15 @@ CREATE TABLE if not exists `Crawling_Keywords` (
   `created_at` timestamp
 );
 
-CREATE TABLE if not exists `Search_Shop` (
+CREATE TABLE `Search_Shop` (
   `search_id` integer PRIMARY KEY,
   `keyword_id` integer,
   `sort` varchar(255),
   `created_at` timestamp
 );
 
-CREATE TABLE if not exists `Query_Keyword` (
-  `query_ID` integer PRIMARY KEY,
+CREATE TABLE `Query_Keyword` (
+  `query_ID` integer PRIMARY KEY AUTO_INCREMENT,
   `keyword_id` integer,
   `add_keyword_id` integer,
   `keyword` varchar(255),
@@ -26,24 +26,24 @@ CREATE TABLE if not exists `Query_Keyword` (
   `created_at` timestamp
 );
 
-CREATE TABLE if not exists `Search_Keyword` (
-  `search_id` integer PRIMARY KEY,
+CREATE TABLE `Search_Keyword` (
+  `search_id` integer PRIMARY KEY AUTO_INCREMENT,
   `query_id` integer,
   `sort` varchar(255),
   `created_at` timestamp
 );
 
-CREATE TABLE if not exists `Keywords_Top` (
-  `keyword_id` integer PRIMARY KEY,
+CREATE TABLE `Keywords_Top` (
+  `keyword_id` integer PRIMARY KEY AUTO_INCREMENT,
   `search_id` integer,
   `ranking` integer,
   `keyword` varchar(255),
   `type` varchar(255)
 );
 
-CREATE TABLE if not exists `Data_Product` (
+CREATE TABLE `Data_Product` (
+  `product_id` integer PRIMARY KEY AUTO_INCREMENT,
   `search_id` integer,
-  `product_id` integer PRIMARY KEY,
   `name` varchar(255),
   `lprice` integer,
   `hprice` integer,
@@ -59,14 +59,14 @@ CREATE TABLE if not exists `Data_Product` (
   `score` float
 );
 
-CREATE TABLE if not exists `Crawling_store` (
-  `search_id` integer PRIMARY KEY,
+CREATE TABLE `Crawling_store` (
+  `search_id` integer PRIMARY KEY AUTO_INCREMENT,
   `product_id` integer,
   `created_at` timestamp
 );
 
-CREATE TABLE if not exists `Data_Reviews` (
-  `search_id` integer PRIMARY KEY,
+CREATE TABLE `Data_Reviews` (
+  `search_id` integer PRIMARY KEY AUTO_INCREMENT,
   `review_id` integer,
   `user_id` varchar(255),
   `score` integer,
@@ -76,9 +76,9 @@ CREATE TABLE if not exists `Data_Reviews` (
   `emotion_score` float
 );
 
-CREATE TABLE if not exists `Data_Posts` (
-  `search_id` integer PRIMARY KEY,
-  `post_id` integer,
+CREATE TABLE `Data_Posts` (
+  `post_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `search_id` integer,
   `title` varchar(255),
   `link` integer,
   `postdate` timestamp,
@@ -87,8 +87,8 @@ CREATE TABLE if not exists `Data_Posts` (
   `emotion_score` float
 );
 
-CREATE TABLE if not exists `Keyword_Reviews` (
-  `keyword_id` integer PRIMARY KEY,
+CREATE TABLE `Keyword_Reviews` (
+  `keyword_id` integer PRIMARY KEY AUTO_INCREMENT,
   `review_id` integer,
   `ranking` integer,
   `keyword` integer,
@@ -96,8 +96,8 @@ CREATE TABLE if not exists `Keyword_Reviews` (
   `emotion_score` float
 );
 
-CREATE TABLE if not exists `Keyword_Posts` (
-  `keyword_id` integer PRIMARY KEY,
+CREATE TABLE `Keyword_Posts` (
+  `keyword_id` integer PRIMARY KEY AUTO_INCREMENT,
   `post_id` integer,
   `ranking` integer,
   `keyword` integer,
