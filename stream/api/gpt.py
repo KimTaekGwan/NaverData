@@ -13,7 +13,6 @@ from dotenv import load_dotenv
 import os
 import sys
 import urllib.request
-import requests
 
 import streamlit as st
 
@@ -30,7 +29,6 @@ class Translater:
         self.setting()
         self.client_id = getsecret("naver_client_id")
         self.client_secret = getsecret("naver_client_secret")
-        print(self.client_id)
 
     def setting(self):
         load_dotenv()
@@ -47,8 +45,7 @@ class Translater:
         rescode = response.getcode()
         if (rescode == 200):
             response_body = response.read()
-            print(response_body.decode('utf-8'))
-            return response_body.decode('utf-8')
+            return eval(response_body.decode('utf-8'))['message']['result']['translatedText']
         else:
             print("Error Code:" + rescode)
             return rescode
@@ -65,7 +62,7 @@ class CopyWriter:
     def set_chain(self, temperature: int = 0.5):
         chat = ChatOpenAI(
             temperature=temperature,
-            # max_tokens=,
+            max_tokens=3500,
             # model_name='text-davinci-003',
             openai_api_key=getsecret("openai")
         )
@@ -87,124 +84,44 @@ class CopyWriter:
         )
         self.chain = LLMChain(llm=chat, prompt=chat_prompt)
 
-    def prompt_text(self, product: str, description: str, keywords: list, num_copy: int) -> str:
-        keywords = ', '.join(set([word for word in keywords if word]))
-        prompt = f"""
-        I am creating social media posts with the goal of selling my \
-        {product} and driving people to my product page. \
-        I suggest seven social media posts that capitalize on the various benefits of \
-        {product} that you can use to drive traffic to my product page.
-        Convince potential customers who are reading your social media posts to buy \
-        {product}.
-        Speak directly to the customer so they know the exact benefits they will receive.
-        \nProduct description: {description}
-        \nInclude keywords : {keywords}\n"""
+    def prompt_text(self, params: dict) -> str:
+        # prompt = """내 제품을 판매하고 사람들을 내 제품 페이지로 유도하는 것을 목표로 소셜 미디어 게시물을 작성하고 있습니다. \
+        # 내 제품 페이지로 트래픽을 유도하는 데 사용할 수 있는 제품의 다양한 이점을 활용하는 소셜 미디어 게시물을 제안합니다. \
+        # 소셜 미디어 게시물을 읽고 있는 잠재 고객이 제품을 구매하도록 설득하세요. 고객이 받게 될 정확한 혜택을 알 수 있도록 고객에게 직접 이야기하세요. \
+        # 아래 제품에 대한 정보와 나의 요구사항을 보고 소셜 미디어 게시물에서 사용할 최종 문구를 한국어 알려줘."""
+        prompt = """I am creating a social media post with the goal of selling my product and driving people \
+        to my product page. I suggest a social media post that leverages the various benefits of my \
+        product that can be used to drive traffic to my product page. Convince potential customers who \
+        are reading your social media post to purchase your product. Talk directly to your customers so \
+        that they know the exact benefits they will receive. Look at the information about the product below \
+        and my requirements and tell me the final wording to use in the social media post."""
+
+        for key, value in params.items():
+            if isinstance(value, list) or isinstance(value, set):
+                res_value = ', '.join(
+                    set([word for word in value.split() if word]))
+            else:
+                res_value = value
+            prompt += f'\n{key} : {res_value}'
+        # prompt += "\n최종 한국어 문구 결과물:"
         prompt += "\nOutput:"
-        for num in range(1, num_copy+1):
+        for num in range(1, params['생성 문구 수']+1):
             prompt += f'\n{num}. '
         return prompt
 
-    def process_run(self, product: str, description: str, keywords: list, num_copy: int):
+    def process_run(self, params: dict):
         self.set_chain()
-        res_prompt = self.prompt_text(
-            product, description, keywords, num_copy)
+        res_prompt = self.prompt_text(params)
         with get_openai_callback() as cb:
             res = self.chain.run(res_prompt=res_prompt)
-            res = self.translater.en2ko(res)
             topics = re.findall(r"\d+\.\s(.+)", res)
-            # print(cb)
             res_tokens = cb.total_tokens
-            # print(res_tokens)
-        topics = re.findall(r"\d+\.\s(.+)", res)
-        return topics
-        # return {'status': True,
-        #         'msg': 'Brainstoming Idea',
-        #         'data': topics,
+        res = re.findall(r"\d+\.\s(.+)", res)
+        # return {'data': res,
         #         'total_tokens': res_tokens}
-
-
-class Brainstoming:
-    def __init__(self):
-        self.setting()
-
-    def setting(self):
-        load_dotenv()
-
-    def set_chain(self, temperature: int = 0.5):
-        chat = ChatOpenAI(
-            temperature=temperature,
-            # max_tokens=,
-            # model_name='text-davinci-003',
-            openai_api_key=getsecret("openai")
-        )
-        system_message_prompt = SystemMessagePromptTemplate(
-            prompt=PromptTemplate(
-                template="You are an assistant who helps me brainstorm \
-                          to find creative topics using the data given to me.",
-                input_variables=[]
-            )
-        )
-        human_message_prompt = HumanMessagePromptTemplate(
-            prompt=PromptTemplate(
-                template="{res_prompt}",
-                input_variables=["res_prompt"]
-            )
-        )
-        chat_prompt = ChatPromptTemplate.from_messages(
-            [system_message_prompt, human_message_prompt]
-        )
-        self.chain = LLMChain(llm=chat, prompt=chat_prompt)
-
-    def prompt_text(self, data_prompt: str, field: str, purpose: str, num_topics: int) -> str:
-        prompt = f"Generate {num_topics} topics in the {field} field for the following purpose: {purpose}\n\nData:\n"
-        prompt += data_prompt
-        prompt += "\nOutput:"
-        for num in range(1, num_topics+1):
-            prompt += f'\n{num}. '
-        return prompt
-
-    def generate_prompt(self, data_infos=dict) -> str:
-        """
-        데이터 정보가 담긴 dict를 받아서 해당 데이터에 대한 프롬프트를 생성합니다.
-
-        Args:
-            data_infos (dict): data info(dict)가 담긴 dict
-                각 데이터의 id값을 key로 가지고 있습니다.
-            data_info (dict): 데이터 정보가 담긴 dict
-                - 'data_name' (str): 데이터명
-                - 'data_description' (str): 데이터 설명
-                - 'columns' (list of dict): 데이터 칼럼 정보가 담긴 dict의 리스트
-                    - 'column_name' (str): 칼럼명
-                    - 'column_description' (str): 칼럼 설명
-
-        Returns:
-            str: 해당 데이터에 대한 프롬프트 문자열입니다.
-        """
-        prompt = ""
-        for n, (_, data) in enumerate(data_infos.items(), start=1):
-            prompt += f"{n}. {data['data_name']}\n"
-            prompt += f"- data description\n"
-            prompt += f"{data['data_description']}\n"
-            prompt += f"- columns info\n"
-            for column in data['columns']:
-                prompt += f"\t- {column['column_name']}: {column['column_description']}\n"
-        return prompt
-
-    def process_run(self, data_infos, field: str, purpose: str, num_topics: int):
-        self.set_chain()
-        data_prompt = self.generate_prompt(data_infos)
-        res_prompt = self.prompt_text(data_prompt, field, purpose, num_topics)
-
-        with get_openai_callback() as cb:
-            res = self.chain.run(res_prompt=res_prompt)
-            topics = re.findall(r"\d+\.\s(.+)", res)
-            # print(cb)
-            res_tokens = cb.total_tokens
-            # print(res_tokens)
-        topics = re.findall(r"\d+\.\s(.+)", res)
-        return {'status': True,
-                'msg': 'Brainstoming Idea',
-                'data': topics,
+        res = [self.translater.en2ko(topic)
+               for topic in topics]
+        return {'data': res,
                 'total_tokens': res_tokens}
 
 

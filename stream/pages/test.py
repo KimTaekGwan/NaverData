@@ -59,7 +59,7 @@ elif mbti == 'ENFP':
 else:
     st.write("당신에 대해 :red[알고 싶어요]:grey_exclamation:")
 
-button = st.button('주제 생성')
+button = st.button('로또를 생성해 주세요!')
 if button:
     field = '교육'
     purpose = '머신러닝 연습'
