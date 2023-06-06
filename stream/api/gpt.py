@@ -15,12 +15,21 @@ import sys
 import urllib.request
 import requests
 
+import streamlit as st
+
+
+def getsecret(name):
+    res = os.getenv(name)
+    if res == None:
+        return st.secrets[name]
+    return res
+
 
 class Translater:
     def __init__(self):
         self.setting()
-        self.client_id = os.getenv("naver_client_id")
-        self.client_secret = os.getenv("naver_client_secret")
+        self.client_id = getsecret("naver_client_id")
+        self.client_secret = getsecret("naver_client_secret")
         print(self.client_id)
 
     def setting(self):
@@ -58,7 +67,7 @@ class CopyWriter:
             temperature=temperature,
             # max_tokens=,
             # model_name='text-davinci-003',
-            openai_api_key=os.getenv("openai")
+            openai_api_key=getsecret("openai")
         )
         system_message_prompt = SystemMessagePromptTemplate(
             prompt=PromptTemplate(
@@ -126,7 +135,7 @@ class Brainstoming:
             temperature=temperature,
             # max_tokens=,
             # model_name='text-davinci-003',
-            openai_api_key=os.getenv("openai")
+            openai_api_key=getsecret("openai")
         )
         system_message_prompt = SystemMessagePromptTemplate(
             prompt=PromptTemplate(
