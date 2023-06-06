@@ -8,7 +8,9 @@ import pandas as pd
 from api.gpt import CopyWriter
 from api.util import update_param
 
-st.set_page_config(page_title="SNS 광고문구", page_icon="😃")
+st.set_page_config(page_title="SNS 광고문구",
+                   layout='wide',
+                   page_icon="😃")
 
 
 # @st.cache_resource

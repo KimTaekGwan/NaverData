@@ -4,7 +4,9 @@ import time
 import numpy as np
 import pandas as pd
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+st.set_page_config(page_title="Plotting Demo",
+                   layout='wide',
+                   page_icon="📈")
 
 st.markdown("# Plotting Demo")
 st.sidebar.header("Plotting Demo")
