@@ -11,7 +11,7 @@ from api.util import update_param
 st.set_page_config(page_title="SNS 광고문구", page_icon="😃")
 
 
-@st.cache_resource
+# @st.cache_resource
 def load_copywriter():
     return CopyWriter()
 
