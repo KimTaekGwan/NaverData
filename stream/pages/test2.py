@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_tags import st_tags  # , st_tags_sidebar
 
 import time
 import numpy as np
