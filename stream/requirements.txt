@@ -69,3 +69,5 @@ zipp==3.11.0
 
 
 openai==0.27.7
+SQLAlchemy==1.4
+
