@@ -1,9 +1,13 @@
 import streamlit as st
+import os
 
 st.set_page_config(
     page_title="Main",
     page_icon="👋",
 )
+
+print(os.getcwd())
+print(os.listdir(os.getcwd()))
 
 st.write("# Welcome to Streamlit! 👋")
 
