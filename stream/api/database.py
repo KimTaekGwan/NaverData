@@ -8,9 +8,11 @@ import pandas as pd
 
 
 def insert_row_in_csv(csv_file, row_dict):
-    # CSV 파일 불러오기
-    data = pd.read_csv(csv_file)
-
+    try:
+        # CSV 파일 불러오기
+        data = pd.read_csv(csv_file)
+    except:
+        data = pd.read_csv(f'stream/{csv_file}')
     # 행 값 추가
     data = data.append(row_dict, ignore_index=True)
     data = data.replace({np.nan: None})
@@ -21,7 +23,13 @@ def insert_row_in_csv(csv_file, row_dict):
 
 def update_in_csv(df, path):
     df = df.replace({np.nan: None})
-    df.to_csv(path, index=False)
+    try:
+        # CSV 파일 불러오기
+        data = pd.read_csv(path)
+        df.to_csv(path, index=False)
+    except:
+        data = pd.read_csv(f'stream/{path}')
+        df.to_csv(f'stream/{path}', index=False)
 
 
 # pet_owners = conn.query('select * from pet_owners')
