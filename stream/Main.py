@@ -6,8 +6,8 @@ st.set_page_config(
     page_icon="👋",
 )
 
-print(os.getcwd())
-print(os.listdir(os.getcwd()))
+st.write(os.getcwd())
+st.write(os.listdir(os.getcwd()))
 
 st.write("# Welcome to Streamlit! 👋")
 
