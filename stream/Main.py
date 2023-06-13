@@ -1,10 +1,19 @@
 import streamlit as st
 import os
 
+from api.database import initCSV
+
 st.set_page_config(
     page_title="Main",
     page_icon="👋",
 )
+
+dbDict = {
+    'sns_ad.csv': ['제품 이름', '제품 정보', '필수 키워드',
+                   '옵션 키워드', '추가 요구사항', '생성 문구 수']
+}
+
+initCSV(dbDict)
 
 st.write(os.getcwd())
 st.write(os.listdir(os.getcwd()))
