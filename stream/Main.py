@@ -6,10 +6,7 @@ from api.database import initCSV
 st.set_page_config(
     page_title="Main",
     page_icon="👋",
-    layout="wide",
-    menu_items={
-        '🔎 키워드 검색': 'https://kimtaekgwan.github.io/',
-    }
+    layout="wide"
 )
 
 dbDict = {
