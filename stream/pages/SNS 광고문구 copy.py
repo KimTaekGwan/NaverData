@@ -163,28 +163,28 @@ st.markdown("> 소비자가 열광할 메타 (페이스북, 인스타그램) 광
 #############################################
 # 사이드바
 
-# btn_load = st.sidebar.button('데이터 불러오기')
-# if len(df) == 0:
-#     max_value = 0
-# else:
-#     row_num = st.sidebar.number_input(
-#         label='행번호',
-#         key='행번호',
-#         min_value=0,
-#         max_value=len(df)-1,
-#         value=0,
-#         label_visibility='collapsed',
-#         step=1
-#     )
-#     load_data = df.iloc[row_num, :].to_dict()
-#     st.sidebar.caption('\n\n'.join(
-#         [f'[{k}] {v}' for k, v in load_data.items()]))
-#     expander = st.sidebar.expander("데이터 확인하기")
-#     display_df = expander.dataframe(df)
+btn_load = st.sidebar.button('데이터 불러오기')
+if len(df) == 0:
+    max_value = 0
+else:
+    row_num = st.sidebar.number_input(
+        label='행번호',
+        key='행번호',
+        min_value=0,
+        max_value=len(df)-1,
+        value=0,
+        label_visibility='collapsed',
+        step=1
+    )
+    load_data = df.iloc[row_num, :].to_dict()
+    st.sidebar.caption('\n\n'.join(
+        [f'[{k}] {v}' for k, v in load_data.items()]))
+    expander = st.sidebar.expander("데이터 확인하기")
+    display_df = expander.dataframe(df)
 
-#     if btn_load:
-#         # print(df.iloc[row_num, :].to_dict())
-#         updateINPUT(load_data)
+    if btn_load:
+        # print(df.iloc[row_num, :].to_dict())
+        updateINPUT(load_data)
 
 #############################################
 # 본문
