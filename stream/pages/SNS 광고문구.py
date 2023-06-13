@@ -150,8 +150,8 @@ last_params = {
 elements = last_params.copy()
 
 wrtier = CopyWriter()
-path = 'csv/sns_ad.csv'
-df = pd.read_csv(path)
+# path = 'csv/sns_ad.csv'
+# df = pd.read_csv(path)
 
 
 #############################################
