@@ -32,7 +32,10 @@ page_icon = '🗂️'
 
 st.set_page_config(page_title=page_title,
                    layout='wide',
-                   page_icon=page_icon)
+                   page_icon=page_icon,
+                   menu_items={
+                       '🔎 키워드 검색': 'https://kimtaekgwan.github.io/'}
+                   )
 
 #############################################
 # 제목
