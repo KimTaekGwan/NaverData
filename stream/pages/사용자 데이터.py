@@ -44,4 +44,4 @@ st.markdown(f"# {page_title} {page_icon}")
 tab1, tab2, tab3 = st.tabs(["SNS 광고문구", "SNS 광고문구", "SNS 광고문구"])
 with tab1:
     layout_1 = st.columns((3, 1))
-    layout_table(layout_1, 'SNS 광고문구', 'csv/sns_ad.csv')
+    layout_table(layout_1, 'SNS 광고문구', 'sns_ad.csv')
