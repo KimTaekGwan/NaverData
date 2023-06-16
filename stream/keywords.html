@@ -1,0 +1,62 @@
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+
+  <script src="//unpkg.com/three"></script>
+  <script src="//unpkg.com/three-spritetext"></script>
+
+  <script src="//unpkg.com/3d-force-graph"></script>
+  <!--<script src="../../dist/3d-force-graph.js"></script>-->
+</head>
+
+<body>
+  <div id="3d-graph"></div>
+
+  <script>
+    const Graph = ForceGraph3D()(document.getElementById("3d-graph"))
+      .jsonUrl(
+        "https://raw.githubusercontent.com/KimTaekGwan/KimTaekGwan.github.io/main/test.json"
+      )
+      .nodeAutoColorBy("group")
+      .nodeThreeObject((node) => {
+        const sprite = new SpriteText(node.id);
+        sprite.material.depthWrite = false; // make sprite background transparent
+        sprite.color = node.color;
+        sprite.textHeight = 8;
+
+        // Calculate transparency based on the group size
+        const groupSize = node.__groupSize || 1;
+        sprite.material.transparent = true;
+        sprite.material.opacity = 0.4 + groupSize * 0.25; // Adjust the transparency factor as desired
+
+        return sprite;
+      })
+      .onNodeClick((node) => {
+        // Aim at node from outside it
+        const distance = 40;
+        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+
+        const newPos =
+          node.x || node.y || node.z
+            ? {
+                x: node.x * distRatio,
+                y: node.y * distRatio,
+                z: node.z * distRatio,
+              }
+            : { x: 0, y: 0, z: distance }; // special case if node is in (0,0,0)
+
+        Graph.cameraPosition(
+          newPos, // new position
+          node, // lookAt ({ x, y, z })
+          3000 // ms transition duration
+        );
+      });
+    // .linkDirectionalParticles("value")
+    // .linkDirectionalParticleSpeed((d) => d.value * 0.001)
+    // Spread nodes a little wider
+    Graph.d3Force("charge").strength(-120);
+  </script>
+</body>
