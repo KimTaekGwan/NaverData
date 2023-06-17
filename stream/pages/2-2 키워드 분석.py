@@ -6,6 +6,8 @@ import numpy as np
 import pandas as pd
 import os
 
+from api.database import html_loader
+
 # Input Layout 생성
 
 
@@ -29,11 +31,12 @@ last_params = {
 }
 elements = last_params.copy()
 
-html_path = 'keywords.html'
-with open(html_path, 'r') as file:
-    html_code = file.read()
-    # print(html)
+html_info = {
+    'path': 'keywords.html',
+    'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/keywords.html'
+}
 
+html_code = html_loader(html_info)
 
 #############################################
 # 제목

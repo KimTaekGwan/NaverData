@@ -31,7 +31,7 @@ elements = last_params.copy()
 
 html_info = {
     'path': 'sejong_insight.html',
-    'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/keywords.html'
+    'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/sejong_insight.html'
 }
 
 html_code = html_loader(html_info)
