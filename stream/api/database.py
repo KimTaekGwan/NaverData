@@ -3,7 +3,9 @@ import streamlit as st
 import time
 import numpy as np
 import pandas as pd
+
 import os
+import requests
 
 # conn = st.experimental_connection('pets_db', type='sql')
 
@@ -44,6 +46,22 @@ def update_in_csv(df, path):
         data = pd.read_csv(f'stream/{path}')
         df.to_csv(f'stream/{path}', index=False)
 
+
+def download_file(url, save_path):
+    response = requests.get(url)
+    with open(save_path, 'wb') as file:
+        file.write(response.content)
+
+
+def html_loader(html_info):
+    try:
+        with open(html_info['path'], 'r') as file:
+            html_code = file.read()
+    except:
+        download_file(html_info['url'], html_info['path'])
+        with open(html_info['path'], 'r') as file:
+            html_code = file.read()
+    return html_code
 
 # pet_owners = conn.query('select * from pet_owners')
 # st.dataframe(pet_owners)

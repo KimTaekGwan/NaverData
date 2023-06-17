@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
+from api.database import html_loader
+
 import time
 import numpy as np
 import pandas as pd
@@ -27,10 +29,14 @@ last_params = {
 }
 elements = last_params.copy()
 
-html_path = 'sejong_insight.html'
-with open(html_path, 'r') as file:
-    html_code = file.read()
-    # print(html)
+html_info = {
+    'path': 'sejong_insight.html',
+    'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/keywords.html'
+}
+
+html_code = html_loader(html_info)
+
+# print(html)
 
 
 #############################################
