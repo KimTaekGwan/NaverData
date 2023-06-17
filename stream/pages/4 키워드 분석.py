@@ -19,7 +19,7 @@ def createInputLayout(elements):
 
 #############################################
 page_title = '키워드 분석 인사이트'
-page_icon = '😃'
+page_icon = '🍒'
 
 st.set_page_config(page_title=page_title,
                    layout='wide',
@@ -42,7 +42,7 @@ keyword_html = html_loader(html_info)
 # 제목
 st.markdown(f"# {page_title} {page_icon}")
 st.write(os.getcwd())
-st.markdown("> 소비자가 열광할 메타 (페이스북, 인스타그램) 광고의 내용을 생성해보세요.")
+st.markdown("""> 네이버 데이터랩 인기검색어의 경쟁사 제품 리뷰 데이터를 분석해 네트워크 그래프로 나타냈습니다. \n> 주요 키워드 연관어를 추출하고 Copy Assistant로 제작할 광고 문구의 필수 키워드 데이터를 얻을 수 있습니다.""")
 
 
 #############################################

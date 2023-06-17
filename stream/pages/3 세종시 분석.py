@@ -17,7 +17,7 @@ def createInputLayout(elements):
 
 #############################################
 page_title = '세종시 분석 인사이트'
-page_icon = '😃'
+page_icon = '🎃'
 
 st.set_page_config(page_title=page_title,
                    layout='wide',
@@ -42,7 +42,7 @@ sejong_html = html_loader(html_info)
 #############################################
 # 제목
 st.markdown(f"# {page_title} {page_icon}")
-st.markdown("> 소비자가 열광할 메타 (페이스북, 인스타그램) 광고의 내용을 생성해보세요.")
+st.markdown("> 세종시 내의 어린이집, 유치원 위치 좌표 분포를 히트맵으로 나타냈습니다. ")
 
 
 #############################################
