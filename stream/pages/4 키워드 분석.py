@@ -14,7 +14,7 @@ from api.database import html_loader
 def createInputLayout(elements):
 
     # st.markdown(html, unsafe_allow_html=True)
-    components.html(html_code, height=600)
+    components.html(keyword_html, height=600)
 
 
 #############################################
@@ -36,7 +36,7 @@ html_info = {
     'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/keywords.html'
 }
 
-html_code = html_loader(html_info)
+keyword_html = html_loader(html_info)
 
 #############################################
 # 제목

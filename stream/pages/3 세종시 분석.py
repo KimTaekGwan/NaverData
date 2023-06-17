@@ -12,7 +12,7 @@ import pandas as pd
 def createInputLayout(elements):
 
     # st.markdown(html, unsafe_allow_html=True)
-    components.html(html_code, height=600)
+    components.html(sejong_html, height=600)
 
 
 #############################################
@@ -34,7 +34,7 @@ html_info = {
     'url': 'https://raw.githubusercontent.com/KimTaekGwan/NaverData/main/stream/sejong_insight.html'
 }
 
-html_code = html_loader(html_info)
+sejong_html = html_loader(html_info)
 
 # print(html)
 
