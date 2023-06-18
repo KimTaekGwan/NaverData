@@ -29,7 +29,7 @@ class DataReviews:
         self.client_secret = os.getenv("client_secret")
 
         self.options = Options()
-        self.options.add_argument('headless')
+        # self.options.add_argument('headless')
 
         # options.add_argument("--start-maximized")  # add
         # options.add_argument("--window-size=1920,1080")  # add
@@ -150,8 +150,8 @@ class DataReviews:
 
 
 if __name__ == '__main__':
-    load_csv_path = 'last/data/Data_Product.csv'
-    save_csv_path = 'last/data/Data_Reviews.csv'
+    load_csv_path = 'data/Data_Product.csv'
+    save_csv_path = 'data/Data_Reviews.csv'
     search_id = 1
 
     datareviews = DataReviews()

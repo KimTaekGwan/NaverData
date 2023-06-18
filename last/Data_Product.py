@@ -100,8 +100,8 @@ class DataProduct:
 
 
 if __name__ == '__main__':
-    load_csv_path = 'last/data/Keywords_Top.csv'
-    save_csv_path = 'last/data/Data_Product.csv'
+    load_csv_path = 'data/Keywords_Top.csv'
+    save_csv_path = 'data/Data_Product.csv'
     search_id = 1
 
     df = pd.read_csv(load_csv_path)
