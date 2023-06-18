@@ -91,6 +91,7 @@ class CopyWriter:
         # 소셜 미디어 게시물을 읽고 있는 잠재 고객이 제품을 구매하도록 설득하세요. 고객이 받게 될 정확한 혜택을 알 수 있도록 고객에게 직접 이야기하세요. \
         # 아래 제품에 대한 정보와 나의 요구사항을 보고 소셜 미디어 게시물에서 사용할 최종 문구를 한국어 알려줘."""
 
+        #
         # prompt = """내 제품을 판매하고 사람들을 내 제품 페이지로 유도하는 것을 목표로 앱 알림 메시지를 작성하고 있습니다. \
         # 앱으로 트래픽을 유도하는 데 사용할 수 있는 앱 알림 메시지을 제안합니다. \
         # 앱 알림 메시지을 읽고 있는 고객이 앱에 들어오고, 제품을 구매하도록 설득하세요. 고객이 받게 될 정확한 혜택을 알 수 있도록 고객에게 직접 이야기하세요. \
@@ -104,6 +105,12 @@ class CopyWriter:
             are reading your social media post to purchase your product. Talk directly to your customers so \
             that they know the exact benefits they will receive. Look at the information about the product below \
             and my requirements and tell me the final wording to use in the social media post."""
+
+        elif self.page_num == 2:
+            prompt = """I am creating an SMS promotional message with the goal of selling my product and driving people to my product page.\
+            Convince customers who are reading your SMS promotion message to buy your product. \
+            Speak directly to them so that they know about the promotion you are running and the exact benefits they will receive. \
+            Take a look at my requirements below and tell me in English the final wording to use in the SMS promotion message."""
 
         elif self.page_num == 3:
             prompt = """I'm creating an app notification message with the goal of selling my product \

@@ -78,6 +78,19 @@ def createInputLayout(elements):
             label_visibility='collapsed'
         )
 
+        # add_req 입력
+        st.markdown("#### 추가 요구사항")
+        elements['추가 요구사항'] = st.empty()
+        elements['추가 요구사항'].text_input(
+            label='추가 요구사항',
+            key='추가 요구사항',
+            value='기존 엘더하이 음료수 제품을 젤리 형태로 신제품 출시. 영양흡수율 증가 기수을 활용하여 제품 사용자인 영유아(2세~7세)에게 면역력을 향상 시키는 것을 목적',
+            placeholder='추가 요구사항을 작성해 주세요.',
+            max_chars=100,
+            disabled=False,
+            label_visibility='collapsed'
+        )
+
     # 생성 문구 수
     st.markdown("### 생성 문구 수")
     elements['생성 문구 수'] = st.empty()
@@ -119,6 +132,7 @@ last_params = {
     '전달한 내용': None,
     '필수 키워드': None,
     '옵션 키워드': None,
+    '추가 요구사항': None,
     '생성 문구 수': None
 }
 elements = last_params.copy()

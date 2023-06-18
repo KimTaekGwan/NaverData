@@ -36,39 +36,52 @@ def update_params():
 
 # Input Layout 생성
 def createInputLayout(elements):
-    # product 입력
-    st.markdown("### 제품 이름")
-    elements['제품 이름'] = st.empty()
-    elements['제품 이름'].text_input(
-        label='제품 이름',
-        key='제품 이름',
-        value='엘더하이 젤리',
-        placeholder='홍보하려는 제품 이름을 작성해 주세요.(최대 20자)',
-        max_chars=20,
+    # 브랜드 이름 입력
+    st.markdown("### 브랜드 이름")
+    elements['브랜드 이름'] = st.empty()
+    elements['브랜드 이름'].text_input(
+        label='브랜드 이름',
+        key='브랜드 이름',
+        value='퓨어',
+        placeholder='브랜드 이름을 작성해 주세요.(최대 10자)',
+        max_chars=10,
         disabled=False,
         label_visibility='collapsed'  # "visible", "hidden", "collapsed"
     )
 
-    # description 입력
-    st.markdown("### 제품 설명")
-    elements['제품 정보'] = st.empty()
-    elements['제품 정보'].text_input(
-        label='제품 정보',
-        key='제품 정보',
-        value='기존 엘더하이 음료수 제품을 젤리 형태로 신제품 출시. 영양흡수율 증가 기수을 활용하여 제품 사용자인 영유아(2세~7세)에게 면역력을 향상 시키는 것을 목적',
-        placeholder='소개하려는 제품 정보를 간략하게 작성해 주세요.(최대 100자)',
-        max_chars=100,
+    # 프로모션 제목 입력
+    st.markdown("### 프로모션 제목")
+    elements['프로모션 제목'] = st.empty()
+    elements['프로모션 제목'].text_input(
+        label='프로모션 제목',
+        key='프로모션 제목',
+        value='신제품 출시 기념! 엘더하이 젤리 구매하세요!',
+        placeholder='프로모션 제목을 간략하게 작성해 주세요.(최대 30자)',
+        max_chars=30,
         disabled=False,
         label_visibility='collapsed'
     )
 
+    # 프로모션 내용 입력
+    st.markdown("### 프로모션 내용")
+    elements['프로모션 내용'] = st.empty()
+    elements['프로모션 내용'].text_input(
+        label='프로모션 내용',
+        key='프로모션 내용',
+        value='신제품 엘더하이 젤리가 새로 출시로, 현재 구매하면 75% 할인, 추가로 리뷰 이벤트 시 1000원 할인 쿠폰 지급',
+        placeholder='프로모션 내용을 입력해 주세요.',
+        max_chars=100,
+        disabled=False,
+        label_visibility='collapsed'
+    )
+    
     # required_keywords 입력
     st.markdown("### 필수 키워드")
     elements['필수 키워드'] = st.empty()
     elements['필수 키워드'].text_input(
         label='필수 키워드',
         key='필수 키워드',
-        value='엘더하이 젤리 면역력',
+        value='엘더하이 젤리 할인 신제품',
         placeholder='각 키워드는 단어의 조합으로 입력해 주세요.',
         max_chars=100,
         disabled=False,
@@ -83,7 +96,7 @@ def createInputLayout(elements):
         elements['옵션 키워드'].text_input(
             label='옵션 키워드',
             key='옵션 키워드',
-            value='유치원집 휴대',
+            value='X',
             placeholder='각 키워드는 단어의 조합으로 입력해 주세요.',
             max_chars=100,
             disabled=False,
@@ -132,8 +145,8 @@ def updateINPUT(load_dict):
 
 
 #############################################
-page_title = 'SNS 광고문구'
-page_icon = '😃'
+page_title = 'SMS 프로모션'
+page_icon = '📨'
 
 st.set_page_config(page_title=page_title,
                    layout='wide',
@@ -141,8 +154,9 @@ st.set_page_config(page_title=page_title,
                    )
 
 last_params = {
-    '제품 이름': None,
-    '제품 정보': None,
+    '브랜드 이름': None,
+    '프로모션 제목': None,
+    '프로모션 내용': None,
     '필수 키워드': None,
     '옵션 키워드': None,
     '추가 요구사항': None,
@@ -150,15 +164,15 @@ last_params = {
 }
 elements = last_params.copy()
 
-wrtier = CopyWriter()
-path = 'sns_ad.csv'
+wrtier = CopyWriter(page_num=2)
+path = 'sms_promotion.csv'
 df = pd.read_csv(path)
 
 
 #############################################
 # 제목
 st.markdown(f"# {page_title} {page_icon}")
-st.markdown("> 소비자가 열광할 메타 (페이스북, 인스타그램) 광고의 내용을 생성해보세요.")
+st.markdown("> 고객에게 알릴 프로모션 내용을 쉽게 구성하고 작성해보세요.")
 
 
 #############################################
