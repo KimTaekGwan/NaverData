@@ -36,41 +36,29 @@ def update_params():
 
 # Input Layout 생성
 def createInputLayout(elements):
-    # product 입력
-    st.markdown("### 제품 이름")
-    elements['제품 이름'] = st.empty()
-    elements['제품 이름'].text_input(
-        label='제품 이름',
-        key='제품 이름',
-        value='엘더하이 젤리',
-        placeholder='홍보하려는 제품 이름을 작성해 주세요.(최대 20자)',
-        max_chars=20,
+
+    # 전달한 내용 입력
+    st.markdown("### 전달한 내용")
+    elements['전달한 내용'] = st.empty()
+    elements['전달한 내용'].text_input(
+        label='전달한 내용',
+        key='전달한 내용',
+        value='6월 2주차 업데이트 공지',
+        placeholder='전달한 내용을 간략히 작성해 주세요.',
+        max_chars=50,
         disabled=False,
         label_visibility='collapsed'  # "visible", "hidden", "collapsed"
     )
 
-    # description 입력
-    st.markdown("### 제품 설명")
-    elements['제품 정보'] = st.empty()
-    elements['제품 정보'].text_input(
-        label='제품 정보',
-        key='제품 정보',
-        value='기존 엘더하이 음료수 제품을 젤리 형태로 신제품 출시. 영양흡수율 증가 기수을 활용하여 제품 사용자인 영유아(2세~7세)에게 면역력을 향상 시키는 것을 목적',
-        placeholder='소개하려는 제품 정보를 간략하게 작성해 주세요.(최대 100자)',
-        max_chars=100,
-        disabled=False,
-        label_visibility='collapsed'
-    )
-
-    # required_keywords 입력
+    # 필수 키워드 입력
     st.markdown("### 필수 키워드")
     elements['필수 키워드'] = st.empty()
     elements['필수 키워드'].text_input(
         label='필수 키워드',
         key='필수 키워드',
-        value='엘더하이 젤리 면역력',
-        placeholder='각 키워드는 단어의 조합으로 입력해 주세요.',
-        max_chars=100,
+        value='엘더하이 젤리 제품 입고',
+        placeholder='전하고자 하는 핵심 내용을 키워드 형식으로 작성해 주세요.',
+        max_chars=50,
         disabled=False,
         label_visibility='collapsed'
     )
@@ -83,22 +71,9 @@ def createInputLayout(elements):
         elements['옵션 키워드'].text_input(
             label='옵션 키워드',
             key='옵션 키워드',
-            value='유치원집 휴대',
-            placeholder='각 키워드는 단어의 조합으로 입력해 주세요.',
-            max_chars=100,
-            disabled=False,
-            label_visibility='collapsed'
-        )
-
-        # add_req 입력
-        st.markdown("#### 추가 요구사항")
-        elements['추가 요구사항'] = st.empty()
-        elements['추가 요구사항'].text_input(
-            label='추가 요구사항',
-            key='추가 요구사항',
             value='X',
-            placeholder='추가 요구사항을 작성해 주세요.',
-            max_chars=100,
+            placeholder='각 키워드는 단어의 조합으로 입력해 주세요.',
+            max_chars=50,
             disabled=False,
             label_visibility='collapsed'
         )
@@ -132,8 +107,8 @@ def updateINPUT(load_dict):
 
 
 #############################################
-page_title = 'SNS 광고문구'
-page_icon = '😃'
+page_title = '앱 푸쉬 알림 멘트'
+page_icon = '📢'
 
 st.set_page_config(page_title=page_title,
                    layout='wide',
@@ -141,24 +116,22 @@ st.set_page_config(page_title=page_title,
                    )
 
 last_params = {
-    '제품 이름': None,
-    '제품 정보': None,
+    '전달한 내용': None,
     '필수 키워드': None,
     '옵션 키워드': None,
-    '추가 요구사항': None,
     '생성 문구 수': None
 }
 elements = last_params.copy()
 
-wrtier = CopyWriter()
-path = 'sns_ad.csv'
+wrtier = CopyWriter(page_num=3)
+path = 'push_alarm.csv'
 df = pd.read_csv(path)
 
 
 #############################################
 # 제목
 st.markdown(f"# {page_title} {page_icon}")
-st.markdown("> 소비자가 열광할 메타 (페이스북, 인스타그램) 광고의 내용을 생성해보세요.")
+st.markdown("> 클릭하고 싶게 만드는 푸쉬 알림 멘트를 작성해 보세요.")
 
 
 #############################################

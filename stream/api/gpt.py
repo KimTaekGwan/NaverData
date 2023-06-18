@@ -52,9 +52,10 @@ class Translater:
 
 
 class CopyWriter:
-    def __init__(self):
+    def __init__(self, page_num):
         self.setting()
         self.translater = Translater()
+        self.page_num = page_num
 
     def setting(self):
         load_dotenv()
@@ -89,12 +90,28 @@ class CopyWriter:
         # 내 제품 페이지로 트래픽을 유도하는 데 사용할 수 있는 제품의 다양한 이점을 활용하는 소셜 미디어 게시물을 제안합니다. \
         # 소셜 미디어 게시물을 읽고 있는 잠재 고객이 제품을 구매하도록 설득하세요. 고객이 받게 될 정확한 혜택을 알 수 있도록 고객에게 직접 이야기하세요. \
         # 아래 제품에 대한 정보와 나의 요구사항을 보고 소셜 미디어 게시물에서 사용할 최종 문구를 한국어 알려줘."""
-        prompt = """I am creating a social media post with the goal of selling my product and driving people \
-        to my product page. I suggest a social media post that leverages the various benefits of my \
-        product that can be used to drive traffic to my product page. Convince potential customers who \
-        are reading your social media post to purchase your product. Talk directly to your customers so \
-        that they know the exact benefits they will receive. Look at the information about the product below \
-        and my requirements and tell me the final wording to use in the social media post."""
+
+        # prompt = """내 제품을 판매하고 사람들을 내 제품 페이지로 유도하는 것을 목표로 앱 알림 메시지를 작성하고 있습니다. \
+        # 앱으로 트래픽을 유도하는 데 사용할 수 있는 앱 알림 메시지을 제안합니다. \
+        # 앱 알림 메시지을 읽고 있는 고객이 앱에 들어오고, 제품을 구매하도록 설득하세요. 고객이 받게 될 정확한 혜택을 알 수 있도록 고객에게 직접 이야기하세요. \
+        # 아래 나의 요구사항을 보고 앱 알림 메시지에서 사용할 최종 문구를 한국어 알려줘.
+
+        # 1. SNS 광고문구
+        if self.page_num == 1:
+            prompt = """I am creating a social media post with the goal of selling my product and driving people \
+            to my product page. I suggest a social media post that leverages the various benefits of my \
+            product that can be used to drive traffic to my product page. Convince potential customers who \
+            are reading your social media post to purchase your product. Talk directly to your customers so \
+            that they know the exact benefits they will receive. Look at the information about the product below \
+            and my requirements and tell me the final wording to use in the social media post."""
+
+        elif self.page_num == 3:
+            prompt = """I'm creating an app notification message with the goal of selling my product \
+            and driving people to my product page. Suggest an app notification message \
+            that I can use to drive traffic to my app. \
+            Convince customers who are reading your app notification message to enter your app and buy your product. \
+            Talk directly to your customers so they know the exact benefits they will receive.\ 
+            Look at my requirements below and tell me in English the final wording to use in the app notification message."""
 
         for key, value in params.items():
             if isinstance(value, list) or isinstance(value, set):

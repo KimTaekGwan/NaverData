@@ -150,7 +150,7 @@ last_params = {
 }
 elements = last_params.copy()
 
-wrtier = CopyWriter()
+wrtier = CopyWriter(page_num=1)
 path = 'sns_ad.csv'
 df = pd.read_csv(path)
 
